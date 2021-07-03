@@ -8,9 +8,9 @@
 <h1>Hello</h1>
 {% extends './home.html' %}
 {% block content %}
-
+{% if answers %}
 <div class="container-fluid">
-    <form action="{% url 'polls:check' %}">
+    <form action="{% url 'polls:question' %}">
         {% for question in questions %}
         {{ forloop.counter }} {{ question.savol }}
         <br>
@@ -25,6 +25,26 @@
         <input type="submit" value="Submit">
     </form>
 </div>
+
+{% else %}
+<dl>
+    {% for question in questions %}
+    <dt><p>{{ forloop.counter }}. {{ question.savol }}</p></dt>
+    {% for choice in question.choice_set.all %}
+    {% if choice.correct %}
+    <dd style="color: blue;">{{ choice.javob }}</dd>
+    {% elif choice.id in answers %}
+    <dd style="color: red;">{{ choice.javob }}</dd>
+    {% else %}
+    <dd>{{ choice.javob }}</dd>
+    {% endif %}
+    {% endfor %}
+    <hr>
+    {% endfor %}
+</dl>
+
+
+{% endif %}
 
 {% endblock content %}
 

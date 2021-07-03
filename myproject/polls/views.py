@@ -1,12 +1,19 @@
 from django.shortcuts import render, HttpResponse
 from .models import Category, Question, Choice
 from django.core.paginator import Paginator
-from django.views.generic import DetailView, TemplateView, ListView
+from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 
 class CategoryListView(ListView):
     model = Category
     template_name = "polls/home.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CategoryListView, self).dispatch(*args, **kwargs)
 
 
 def category(request, category):
@@ -15,9 +22,13 @@ def category(request, category):
 
 
 def check(request):
-    result = ""
+    question_num = []
+    answers = []
     for key, value in request.GET.items():
-        choice = Choice.objects.get(pk=value)
-        result += f"savolardan {key},<br>javobi: {choice.correct}<br><br>"
-    return HttpResponse(result)
+        question_num.append(key)
+        answers.append(int(value))
+
+    questions = Question.objects.filter(id__in=question_num)
+    return render(request, 'polls/question.html', {'questions': questions, "answers": answers})
+
 

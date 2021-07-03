@@ -1,0 +1,16 @@
+{% block signup %}
+
+<h1>SignUp Page</h1>
+<hr>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{% url 'home' %}">
+    <button type="submit">Sign Up</button>
+  </form>
+<hr>
+
+<br>
+<a href="{% url 'home' %}">Home</a>
+
+{% endblock %}

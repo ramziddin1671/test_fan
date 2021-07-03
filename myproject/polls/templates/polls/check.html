@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends './home.html' %}
+{% block content %}
+
+<dl>
+    {% for question in questions %}
+    <dt><p>{{ forloop.counter }}. {{ question.savol }}</p></dt>
+    {% for choice in question.choice_set.all %}
+    {% if choice.correct %}
+    <dd style="color: blue;">{{ choice.javob }}</dd>
+    {% elif choice.id in answers %}
+    <dd style="color: red;">{{ choice.javob }}</dd>
+    {% else %}
+    <dd>{{ choice.javob }}</dd>
+    {% endif %}
+    {% endfor %}
+    <hr>
+    {% endfor %}
+</dl>
+
+
+{% endblock %}
+
+
+
+
+</body>
+</html>

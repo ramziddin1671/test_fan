@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User, Group
 
 
 class Category(models.Model):
@@ -26,3 +27,11 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.javob
+
+# Natijalar uchun
+
+
+class Result(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    result = models.FloatField(default=0.0)

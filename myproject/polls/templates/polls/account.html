@@ -1,0 +1,35 @@
+
+{% extends './home.html' %}
+
+
+
+
+{% block content %}
+
+
+<div class="container-fluid">
+    <div class="col">
+{% if object_list %}
+
+<div style="max-width: 50rem;" class="col-6">
+
+    {% for object in object_list %}
+    <div class="col-4">
+        <div class="card h-100 text-white bg-success mb-3">
+            <div class="card-header"><h2>{{ object.category.name }}</h2>
+              <div class="card-body">
+                <h5 class="card-title">Eng yuqori natija {{ object.result|floatformat:2}}</h5>
+              </div>
+             </div>
+        </div>
+{% endfor %}
+    </div>
+{% else %}
+ <p class="card-text">Siz xali xech qanday fandan test topshirmadingiz</p>
+        {% endif %}
+</div>
+
+    </div>
+</div>
+
+{% endblock content %}

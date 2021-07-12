@@ -11,8 +11,43 @@
 
 </head>
 <body>
-<h3>hello</h3>
 
+
+
+{% block navbar %}
+<nav class="navbar navbar-dark bg-dark " style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; background-image: url(iy.jpg);">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'polls:home' %}" style="font-weight: bold; font-size: 35px; font-family: Century Gothic; color: #80ffbf; text-shadow:-1px 1px 10px gray;">
+      HOME PAGE
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="border-radius: 3px;background-color: #0066cc; font-size: 24px; border: groove black 1px; box-shadow:0px 0px 50px #802b00; "></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% for category in object_list %}
+
+        <li style="box-shadow: 0 0 25px blue" class="nav-item">
+          <a style="box-shadow: 0 0 25px blue" class="nav-link active" aria-current="page" href="{% url 'polls:question' category.id %}">{{category.name}}</a>
+        </li>
+        {% endfor %}
+           </ul>
+
+
+
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+<button><a href="{% url 'polls:account' %}">Shaxsiy kabinet </a></button>
+<br>
+<button><a href="{% url 'logout' %}">Saytdan chiqish</a></button>
 
 
 {% block content %}
